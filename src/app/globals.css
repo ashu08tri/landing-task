@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar for Chrome */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }

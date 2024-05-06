@@ -21,7 +21,7 @@ function Form() {
   useEffect(() => {
     async function getData(){
       try{
-            let res = await fetch(`http://localhost:3000/api`,{cache: 'no-store'});
+            let res = await fetch('http://localhost:3000/api',{cache: 'no-store'});
             if(res.ok){
             res = await res.json();
             setData(res.result); 

@@ -17,7 +17,7 @@ module.exports = {
         playfair: ['Playfair Display', 'sans-serif']
       },
       colors: {
-        'opacity-blue': '#3461FF;',
+        'opacity-blue': 'rgb(52,97,255)',
       },
     },
   },

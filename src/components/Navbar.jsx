@@ -42,8 +42,8 @@ function Navbar() {
    </div>
     
    </nav>
-   <div className={`${toggle ? 'max-h-40' : 'max-h-0'} md:hidden transition-all duration-300 ease-in-out`}>
-                <ul className={`${toggle ? 'opacity-1' : 'opacity-10'} py-2 font-bold text-gray-600 transition-all duration-200 ease-in`}>
+   <div className='md:hidden transition-all duration-300 ease-in-out' style={{height: toggle ? '8rem' : '0', opacity: toggle ? 1 : 0}}>
+                <ul className='py-2 font-bold text-gray-600 transition-all duration-200 ease-in'>
                   <li className="py-2 px-4"><Link href='/publisher'>Publisher</Link></li>
                   <li className="py-2 px-4"><Link href='/advertiser'>Advertiser</Link></li>
                   <li className="py-2 px-4"><Link href='/task'>Task</Link></li>

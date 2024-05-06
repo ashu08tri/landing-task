@@ -77,9 +77,12 @@ function FormModal({ ontoggleClose, onRefresh }) {
             <label htmlFor="priority" className='ml-5'>Priority</label>
           </div>
           <div className='w-3/4 flex justify-center items-center'>
-            <select id="prioritySelect" required value={priority} onChange={(e) => setPriority(e.target.value)} className={`py-1 px-3 rounded-sm focus:outline-none w-3/4 appearance-none
-          ${priority === 'High' && 'bg-green-100 text-green-700 border-2 border-green-500' || priority === 'Medium' && 'bg-blue-100 text-blue-700 border-2 border-blue-500' || priority === 'Low' && 'bg-red-100 text-red-700 border-2 border-red-500'}`} >
-              <option value="High" className='py-1 px-3 bg-green-200 text-green-700'>High</option>
+            <select id="prioritySelect" required value={priority} onChange={(e) => setPriority(e.target.value)} className='py-1 px-3 rounded-sm focus:outline-none w-3/4 appearance-none' 
+             style={{background: priority==='High' ? '#dcfce7' : '' || priority==='Medium' ? '#dbeafe' : '' || priority==='Low' ? '#fee2e2' : '',
+             color: priority==='High' ? '#15803d' : '' || priority==='Medium' ? '#1d4ed8' : '' || priority==='Low' ? '#b91c1c' : ''
+             }}
+            >
+            <option value="High" className='py-1 px-3 bg-green-200 text-green-700'>High</option>
               <option value="Medium" className='py-1 px-3 bg-blue-200 text-blue-700'>Medium</option>
               <option value="Low" className='py-1 px-3 bg-red-200 text-red-700'>Low</option>
             </select>
@@ -95,8 +98,10 @@ function FormModal({ ontoggleClose, onRefresh }) {
           </div>
 
           <div className='w-3/4 flex justify-center'>
-            <select id="statusSelect" value={status} required onChange={(e) => setStatus(e.target.value)} className={`py-1 px-3 rounded-sm focus:outline-none w-3/4 appearance-none
-           ${status === 'Complete' && 'bg-green-100 text-green-700 border-2 border-green-500' || status === 'Assigned' && 'bg-blue-100 text-blue-700 border-2 border-blue-500' || status === 'To pick' && 'bg-red-100 text-red-700 border-2 border-red-500'}`} >
+            <select id="statusSelect" value={status} required onChange={(e) => setStatus(e.target.value)} className='py-1 px-3 rounded-sm focus:outline-none w-3/4 appearance-none'
+            style={{background: status==='Complete' ? '#dcfce7' : '' || status==='Assigned' ? '#dbeafe' : '' || status==='To pick' ? '#fee2e2' : '',
+            color: status==='Complete' ? '#15803d' : '' || status==='Assigned' ? '#1d4ed8' : '' || status==='To pick' ? '#b91c1c' : ''}}
+            >
               <option value="Complete" className='py-1 px-3 bg-green-200 text-green-700'>Completed</option>
               <option value="Assigned" className='py-1 px-3 bg-blue-200 text-blue-700'>Assigned</option>
               <option value="To pick" className='py-1 px-3 bg-red-200 text-red-700'>To Pick</option>
