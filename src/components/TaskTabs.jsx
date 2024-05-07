@@ -1,8 +1,6 @@
 "use client"
 import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import {Box, Tab, Tabs,Typography} from '@mui/material';
 import Form from './Form';
 
 function CustomTabPanel(props) {
@@ -56,7 +54,9 @@ export default function TaskTabs() {
        
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Box height={'65vh'}></Box>
+        <Box height={'65vh'} width={'90vw'} display={'flex'} justifyContent={'center'} alignItems='center'>
+          <Typography variant='h4'>Some content here!</Typography>
+        </Box>
       </CustomTabPanel>
     </Box>
   );

@@ -31,8 +31,8 @@ function Navbar() {
    
    <div className="w-3/4 hidden md:flex justify-between items-center">
    <ul className="flex justify-between w-72 text-white">
-        <li><Link href='/publisher'>Publisher</Link></li>
-        <li><Link href='/advertiser'>Advertiser</Link></li>
+        <li><Link href='/'>Publisher</Link></li>
+        <li><Link href='/'>Advertiser</Link></li>
         <li><Link href='/task'>Task</Link></li>
     </ul>
     <div className="pr-28 flex gap-2">

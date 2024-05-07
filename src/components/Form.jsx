@@ -21,7 +21,7 @@ function Form() {
   useEffect(() => {
     async function getData(){
       try{
-            let res = await fetch('http://localhost:3000/api',{cache: 'no-store'});
+            let res = await fetch('https://landing-taskapp.vercel.app/api',{cache: 'no-store'});
             if(res.ok){
             res = await res.json();
             setData(res.result); 
@@ -82,11 +82,11 @@ function Form() {
             </div>
             <div className="px-1 md:px-4 flex gap-2">
                 <p className="hidden md:flex justify-evenly items-center h-10 md:h-auto p-2 border-2 border-blue-200 rounded-md text-gray-400">Sort By <span className="px-1"><IoIosArrowDown /></span></p>
-               <button onClick={toggleDrawer('right', true)} className="flex h-11 md:h-auto justify-evenly items-center bg-indigo-600 text-white px-2 md:px-4 rounded-md active:scale-90"><AiFillPlusCircle className="text-xl mr-2"/> Add Group</button>
+               <button onClick={toggleDrawer('right', true)} className="flex h-11 md:h-auto justify-evenly text-xs md:text-base items-center bg-indigo-600 text-white px-2 md:px-4 rounded-md active:scale-90"><AiFillPlusCircle className="text-xl mr-2"/> Add Group</button>
             </div>
             
         </div>
-        <TaskTable data={data}/>
+        <TaskTable data={data} onRefresh={refreshHandler}/>
     </>
   );
 }

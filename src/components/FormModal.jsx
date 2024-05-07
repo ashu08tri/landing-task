@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { Toaster, toast } from 'sonner';
 import { RxCross2 } from "react-icons/rx";
 
 function FormModal({ ontoggleClose, onRefresh }) {
  
   const [task, setTask] = useState("")
+  const [assignee, setAssignee] = useState("/profile.jpeg")
   const [priority, setPriority] = useState("High")
   const [status, setStatus] = useState("To pick")
   const [start, setStart] = useState("")
@@ -15,16 +17,15 @@ function FormModal({ ontoggleClose, onRefresh }) {
 
     const formData = {
       task,
-      assignee: "/profile.jpeg",
+      assignee,
       priority,
       status,
       start,
       end
     };
 
-
     try {
-      let res = await fetch('http://localhost:3000/api', {
+      let res = await fetch('https://landing-taskapp.vercel.app/api', {
         method: 'POST',
         body: JSON.stringify(formData)
       })
@@ -32,11 +33,13 @@ function FormModal({ ontoggleClose, onRefresh }) {
     } catch (err) {
       console.log(err);
     }
+    toast.success('Task Created Successfully!')
     onRefresh(true);
   }
 
   return (
     <>
+     <Toaster richColors closeButton />
       <div className='flex justify-between items-center'>
         <h1 className='text-3xl p-4 font-semibold'>Task Name</h1>
         <div className='text-xl pr-8' onClick={ontoggleClose('right', false)}>
@@ -45,7 +48,7 @@ function FormModal({ ontoggleClose, onRefresh }) {
 
       </div>
 
-      <form action='http://localhost:3000/api' method='POST' onSubmit={submitHandler}>
+      <form method='POST' onSubmit={submitHandler}>
 
         <div className='flex justify-evenly items-center my-4'>
           <div className='w-1/4 flex justify-start'>
@@ -62,10 +65,24 @@ function FormModal({ ontoggleClose, onRefresh }) {
           <div className='w-1/4 flex justify-start'>
             <label htmlFor="assignee" className='ml-5'>Assignee</label>
           </div>
-          <div className='w-3/4 flex justify-center'>
-            <div className='w-3/4 flex items-center bg-gray-200 rounded-sm'>
-              <img src="/profile.jpeg" alt="profile" className='w-8 h-8 pl-3' />
-              <p className='pl-3'>Peter Parker</p>
+          <div className='w-3/4 flex flex-col gap-2 items-center justify-center' onClick={(e) => setAssignee(e.target.children[0].alt)}>
+            <div className='w-3/4 flex items-center bg-gray-200 rounded-sm hover:bg-gray-300 cursor-pointer' 
+            style={{background: assignee==='/profile.jpeg' && '#9ca3af',color: assignee==='/profile.jpeg' && '#fff'}}
+            >
+              <img src="/profile.jpeg" alt="/profile.jpeg" className='w-8 h-8 pl-3 mr-3' />
+              Peter Parker
+            </div>
+            <div className='w-3/4 flex items-center bg-gray-200 rounded-sm hover:bg-gray-300 cursor-pointer'
+            style={{background: assignee==='/marie_jane_profile.jpeg' && '#9ca3af',color: assignee==='/marie_jane_profile.jpeg' && '#fff'}}
+            >
+              <img src="/marie_jane_profile.jpeg" alt="/marie_jane_profile.jpeg" className='w-8 h-8 pl-3 mr-3' />
+              Marie Jane
+            </div>
+            <div className='w-3/4 flex items-center bg-gray-200 rounded-sm hover:bg-gray-300 cursor-pointer'
+            style={{background: assignee==='/Lex_Luthor.jpg' && '#9ca3af',color: assignee==='/Lex_Luthor.jpg' && '#fff'}}
+            >
+              <img src="/Lex_Luthor.jpg" alt="/Lex_Luthor.jpg" className='w-8 h-8 pl-3 mr-3' />
+              Lex Luthor
             </div>
           </div>
 
@@ -123,7 +140,7 @@ function FormModal({ ontoggleClose, onRefresh }) {
 
         <div className='flex justify-evenly items-center my-4'>
           <div className='w-1/4 flex justify-start'>
-            <label htmlFor="end" className='ml-5'>Start Date</label>
+            <label htmlFor="end" className='ml-5'>End Date</label>
           </div>
           <div className='w-3/4 flex justify-center'>
             <input type="date" required onChange={(e) => setEnd(e.target.value)} className='bg-gray-300 text-black py-1 px-3 rounded-sm focus:outline-none w-3/4' />
