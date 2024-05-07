@@ -13,6 +13,7 @@ import TaskTable from "./TaskTable";
 function Form() {
  
   const[data,setData] = useState([])
+  const[isLoading,setIsloading] = useState(false);
   const [refresher,setRefresher] = useState(false)
   const [state, setState] = useState({
     right: false,
@@ -21,24 +22,27 @@ function Form() {
   useEffect(() => {
     async function getData(){
       try{
-            let res = await fetch('https://landing-taskapp.vercel.app/api',{cache: 'no-store'});
+            setIsloading(true)
+            let res = await fetch('http://localhost:3000/api',{cache: 'no-store'});
             if(res.ok){
             res = await res.json();
             setData(res.result); 
+            setIsloading(false)
           }
           }catch(e){
+            setIsloading(false)
             console.log(e);
             return null;
           }
     } 
     getData()
+    toggleDrawer('right', false)
   },[refresher])
 
   const refreshHandler = () => {
     setRefresher(!refresher)
   }
  
-
   const toggleDrawer = (right, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -75,7 +79,7 @@ function Form() {
         <div className="flex">
             <p className="flex justify-evenly items-center h-11 md:h-auto border-2 border-blue-200 rounded-md rounded-r-none text-gray-400"><span className="px-1 md:px-3"><TbMenuDeep /></span> All <span className="px-1 md:px-3"><IoIosArrowDown /></span></p>
             <div className="relative">
-                <div className="absolute top-3 left-32 md:left-5 text-xl">
+                <div className="absolute top-3 left-36 md:left-5 text-xl">
                 <CiSearch />
                 </div>
             <input type="text" placeholder="Search" className="py-2 px-1 md:px-12 h-11 md:h-auto border-2 border-blue-200 rounded-md rounded-l-none border-l-0 focus:outline-none"/>
@@ -86,7 +90,7 @@ function Form() {
             </div>
             
         </div>
-        <TaskTable data={data} onRefresh={refreshHandler}/>
+        <TaskTable data={data} onRefresh={refreshHandler} isLoading={isLoading}/>
     </>
   );
 }

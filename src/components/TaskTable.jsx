@@ -1,15 +1,16 @@
 import { Toaster, toast } from 'sonner';
+import PuffLoader from "react-spinners/PuffLoader";
 import { IoIosArrowDown } from "react-icons/io";
 
-function TaskTable({ data, onRefresh }) {
+function TaskTable({ data, onRefresh, isLoading }) {
 
     const deleteHandler = async (id, status) => {
         if (status === 'Complete') {
-            let res = await fetch('https://landing-taskapp.vercel.app/api/' + id, {
+            let res = await fetch('http://localhost:3000/api/' + id, {
                 method: 'DELETE'
             });
             res = await res.json();
-        }else{
+        } else {
             return toast.error('Task is not completed yet!');
         }
         toast.error('Task Deleted!')
@@ -25,7 +26,7 @@ function TaskTable({ data, onRefresh }) {
                 </div>
                 <h1 className="text-2xl font-semibold py-2">Group Name</h1>
             </div>
-            <div className="h-[calc(50vh)] w-[calc(85vw)] md:w-screen overflow-x-scroll">
+            <div className="h-[calc(50vh)] w-[calc(85vw)] md:w-screen overflow-x-scroll no-scrollbar">
                 <table className="w-[calc(100vw)] md:w-[calc(90%)] text-left text-gray-500 border-separate border-spacing-1">
                     <thead>
                         <tr>
@@ -38,7 +39,17 @@ function TaskTable({ data, onRefresh }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.length>0 ? data.map((task, i) =>
+                        <tr>
+                            <td>{isLoading && <PuffLoader
+                            color='blue'
+                            loading={isLoading}
+                            size={50}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />}</td>
+                        </tr>
+                        {!isLoading && data.length === 0 && <tr><td>No task available!</td></tr>}
+                        {!isLoading && data.length > 0 && data.map((task, i) =>
                             <tr className="hover:bg-blue-100" key={i}>
                                 <td className='p-3 text-sm md:text-base mr-2 cursor-pointer w-3/12 border-2  rounded-sm'>{task.task}</td>
                                 <td className='p-3 mr-2 cursor-pointer border-2 rounded-sm text-center w-1/12'><img src={task.assignee} alt="user" className="w-6 h-6 block" style={{ margin: '0 auto' }} /></td>
@@ -47,11 +58,11 @@ function TaskTable({ data, onRefresh }) {
                                 >{task.priority}</td>
                                 <td className='p-3 text-sm md:text-base mr-2 cursor-pointer text-white rounded-sm' onClick={() => deleteHandler(task._id, task.status)}
                                     style={{ background: task.status === 'Complete' ? '#65a30d' : '' || task.status === 'Assigned' ? '#60a5fa' : '' || task.status === 'To pick' ? '#fca5a5' : '' }}
-                                >{task.status==='Complete'?'Complete/Remove': task.status}</td>
+                                >{task.status === 'Complete' ? 'Complete/Remove' : task.status}</td>
                                 <td className='p-3 text-sm md:text-base mr-2 cursor-pointer border-2 rounded-sm'>{task.start.split("T")[0]}</td>
                                 <td className='p-3 text-sm md:text-base cursor-pointer border-2 rounded-sm'>{task.end.split("T")[0]}</td>
                             </tr>
-                        ): <p className='text-xl'>No task available!</p>}
+                        )}
                     </tbody>
                 </table>
             </div>

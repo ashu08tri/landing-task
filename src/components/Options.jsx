@@ -7,7 +7,7 @@ const dummy = [
         desc: 'Utilize interactive ad formats for higher user engagement and conversion rates.'
     },
     {
-        img: '/group_user_fill.png',
+        img: '/group_user_Fill.png',
         title: 'Subscription Integration',
         desc: 'Track the performance of your ads with real-time analytics and engagement data.'
     },
