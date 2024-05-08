@@ -4,9 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { TbMenuDeep } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
 import { AiFillPlusCircle } from "react-icons/ai";
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import FormModal from "./FormModal";
+import Drawer from "./Drawer";
 import TaskTable from "./TaskTable";
 
 
@@ -15,9 +13,7 @@ function Form() {
   const[data,setData] = useState([])
   const[isLoading,setIsloading] = useState(false);
   const [refresher,setRefresher] = useState(false)
-  const [state, setState] = useState({
-    right: false,
-  });
+  const[state,setState] = useState(false);
 
   useEffect(() => {
     async function getData(){
@@ -36,46 +32,22 @@ function Form() {
           }
     } 
     getData()
-    toggleDrawer('right', false)
   },[refresher])
 
   const refreshHandler = () => {
     setRefresher(!refresher)
   }
- 
-  const toggleDrawer = (right, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
 
-    setState({ ...state, [right]: open });
+  const toggleDrawer = () => {
+    setState(!state)
   };
-
-  const list = () => (
-    <Box
-      sx={{ width: 400 }}
-      role="presentation"
-    >
-    <FormModal ontoggleClose={toggleDrawer} onRefresh={refreshHandler}/> 
-    </Box>
-  );
-
+ 
+ 
   return (
     <>
-        <div>
-      {['right'].map((right) => (
-        <Fragment key={right}>
-          <Drawer
-            anchor={right}
-            open={state[right]}
-            onClose={toggleDrawer(right, false)}
-          >
-            {list(right)}
-          </Drawer>
-        </Fragment>
-      ))}
-    </div>
-
+    {
+      state && <Drawer isOpen={state} onClose={toggleDrawer} onRefresh={refreshHandler} />
+    }
         <div className="flex">
             <p className="flex justify-evenly items-center h-11 md:h-auto border-2 border-blue-200 rounded-md rounded-r-none text-gray-400"><span className="px-1 md:px-3"><TbMenuDeep /></span> All <span className="px-1 md:px-3"><IoIosArrowDown /></span></p>
             <div className="relative">
@@ -86,7 +58,7 @@ function Form() {
             </div>
             <div className="px-1 md:px-4 flex gap-2">
                 <p className="hidden md:flex justify-evenly items-center h-10 md:h-auto p-2 border-2 border-blue-200 rounded-md text-gray-400">Sort By <span className="px-1"><IoIosArrowDown /></span></p>
-               <button onClick={toggleDrawer('right', true)} className="flex h-11 md:h-auto justify-evenly text-xs md:text-base items-center bg-indigo-600 text-white px-2 md:px-4 rounded-md active:scale-90"><AiFillPlusCircle className="text-xl mr-2"/> Add Group</button>
+               <button onClick={()=>setState(!state)} className="flex h-11 md:h-auto justify-evenly text-xs md:text-base items-center bg-indigo-600 text-white px-2 md:px-4 rounded-md active:scale-90"><AiFillPlusCircle className="text-xl mr-2"/> Add Group</button>
             </div>
             
         </div>
