@@ -55,13 +55,13 @@ function Drawer({ isOpen, onClose, onRefresh }) {
             {isOpen &&
                <>
                <Toaster richColors closeButton/>
-               <div className='h-screen w-[calc(100vw-320px)] md:w-[calc(100vw-380px)]  opacity-20 bg-gray-400 fixed bottom-1 right-80 md:right-96 z-30' onClick={onClose}></div>
+               <div className='h-screen w-[calc(100vw-330px)] md:w-[calc(100vw-380px)]  opacity-20 bg-gray-400 fixed bottom-1 right-80 md:right-96 z-30' onClick={onClose}></div>
                 <motion.div
                     initial={{ x: '100%' }}
                     animate={{ x: 0 }}
                     exit={{ x: '100%' }}
                     transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                    className='fixed w-[calc(72vw)] md:w-[calc(30vw)] top-0 right-0 bottom-0 z-40 bg-white shadow-md p-4'
+                    className='fixed w-[calc(78vw)] md:w-[calc(30vw)] top-0 right-0 bottom-0 z-40 bg-white shadow-md p-4'
                 >
                     {/* Drawer Content */}
                     <>
