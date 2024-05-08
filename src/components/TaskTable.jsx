@@ -6,7 +6,7 @@ function TaskTable({ data, onRefresh, isLoading }) {
 
     const deleteHandler = async (id, status) => {
         if (status === 'Complete') {
-            let res = await fetch('http://localhost:3000/api/' + id, {
+            let res = await fetch('https://landing-taskapp.vercel.app/api/' + id, {
                 method: 'DELETE'
             });
             res = await res.json();

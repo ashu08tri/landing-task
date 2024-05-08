@@ -30,7 +30,7 @@ function Drawer({ isOpen, onClose, onRefresh }) {
         };
 
         try {
-            let res = await fetch('http://localhost:3000/api', {
+            let res = await fetch('https://landing-taskapp.vercel.app/api', {
                 headers: {
                     "Content-Type": "application/json"
                 },
